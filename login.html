@@ -3,22 +3,15 @@
 <head>
 <title>Login | SkillEarn</title>
 <link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<section class="hero">
-<h1>Login to SkillEarn</h1>
+<div class="form-box">
+  <h2>Login to SkillEarn</h2><br>
+  <input type="email" placeholder="Email">
+  <input type="password" placeholder="Password">
+  <button class="btn">Login</button>
+</div>
 
-<form class="form-box" onsubmit="login(event)">
-<input type="email" id="loginEmail" placeholder="Email" required>
-<input type="password" id="loginPassword" placeholder="Password" required>
-
-<button class="btn">Login</button>
-<p>New user? <a href="signup.html">Create account</a></p>
-</form>
-</section>
-
-<script src="auth.js"></script>
 </body>
 </html>
