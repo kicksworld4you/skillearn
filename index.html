@@ -2,244 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skillearn - Learn Skills That Build Your Career</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Arman's Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+    <!-- HEADER -->
+    <header class="header">
+        <h1>Arman's Dashboard</h1>
+        <p class="tagline">Skillearn  Learning Platform</p>
+    </header>
 
-        /* Header and Navigation */
-        header {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#">Courses</a>
+        <a href="#">Affiliate</a>
+        <a href="#">Login</a>
+        <a href="#">Signup</a>
+    </nav>
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    <!-- MAIN CONTENT -->
+    <section class="container">
 
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #2563eb;
-        }
+        <div class="card">
+            <h2>Learn Skills Online</h2>
+            <p>Upgrade your skills with high quality digital courses.</p>
+            <button>Explore Courses</button>
+        </div>
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+        <div class="card">
+            <h2>Affiliate Program</h2>
+            <p>Earn money by promoting our skill-based products.</p>
+            <button>Join Now</button>
+        </div>
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+        <div class="card">
+            <h2>User Dashboard</h2>
+            <p>Track your learning, earnings and progress.</p>
+            <button>Go to Dashboard</button>
+        </div>
 
-        .nav-links a:hover {
-            color: #2563eb;
-        }
+    </section>
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8rem 5% 4rem;
-            text-align: center;
-            margin-top: 80px;
-        }
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2026 Arman's Dashboard | Inspired by SkillBazaar</p>
+    </footer>
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .cta-button {
-            background: #fff;
-            color: #2563eb;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-        }
-
-        /* About Section */
-        .about {
-            padding: 4rem 5%;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #2563eb;
-        }
-
-        .benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .benefit-card h3 {
-            color: #2563eb;
-            margin-bottom: 1rem;
-        }
-
-        /* Courses Section */
-        .courses {
-            padding: 4rem 5%;
-        }
-
-        .courses h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2563eb;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .course-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .course-image {
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .course-info {
-            padding: 1.5rem;
-        }
-
-        .course-info h3 {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .course-info p {
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .enroll-btn {
-            background: #2563eb;
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .enroll-btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: #1f2937;
-            color: white;
-            padding: 4rem 5%;
-        }
-
-        .contact-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .founder-info h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #2563eb;
-        }
-
-        .founder-info p {
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-        }
-
-        .contact-form h3 {
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
+</body>
+</html>
