@@ -1,25 +1,56 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Arman's Dashboard | Skillearn</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Skillearning</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>Arman's Dashboard</h1>
-  <p>Welcome to Skillearn</p>
+<header class="navbar">
+  <div class="logo">Skillearning</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="courses.html">Courses</a>
+    <a href="affiliate.html">Affiliate</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="enroll.html" class="btn enroll-btn">Enroll Now</a>
 </header>
 
-<section class="box">
-  <h3>My Courses</h3>
-  <p>No courses enrolled yet</p>
+<section class="hero">
+  <h1>Welcome to Arman's Dashboard</h1>
+  <h3>Track Your Courses & Progress</h3>
+  <p>Manage your learning journey efficiently</p>
 </section>
 
-<section class="box">
-  <h3>Payment Status</h3>
-  <p>Submit payment details via enroll form</p>
+<section class="courses">
+<h2>Your Enrolled Courses</h2>
+<div class="course-cards">
+  <div class="card">
+    <img src="images/course1.jpg" alt="Web Development">
+    <h3>Web Development</h3>
+    <p>Progress: 40%</p>
+  </div>
+  <div class="card">
+    <img src="images/course2.jpg" alt="Digital Marketing">
+    <h3>Digital Marketing</h3>
+    <p>Progress: 20%</p>
+  </div>
+  <div class="card">
+    <img src="images/course3.jpg" alt="Graphic Design">
+    <h3>Graphic Design</h3>
+    <p>Progress: 10%</p>
+  </div>
+</div>
 </section>
+
+<footer>
+<p>© 2026 Skillearning. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
