@@ -1,188 +1,135 @@
-/* =====================
-   GOOGLE FONT
-===================== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* =====================
-   BODY
-===================== */
 body {
-  background: #f8fafc;
-  color: #0f172a;
-  line-height: 1.6;
+    background-color: #ffffff;
+    line-height: 1.6;
 }
 
-/* =====================
-   TOP BAR
-===================== */
-.topbar {
-  background: #020617;
-  color: #fff;
-  padding: 16px 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* =====================
-   3 DOT MENU
-===================== */
-.menu {
-  position: relative;
-}
-
-.dots {
-  font-size: 28px;
-  cursor: pointer;
-}
-
-#menu-toggle {
-  display: none;
-}
-
-.dropdown {
-  position: absolute;
-  right: 0;
-  top: 40px;
-  background: #fff;
-  width: 200px;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.18);
-  display: none;
-  overflow: hidden;
-}
-
-.dropdown a {
-  display: block;
-  padding: 14px 18px;
-  text-decoration: none;
-  color: #020617;
-  font-weight: 500;
-}
-
-.dropdown a:hover {
-  background: #f1f5f9;
-}
-
-#menu-toggle:checked + .dots + .dropdown {
-  display: block;
-}
-
-/* =====================
-   CONTAINER
-===================== */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-/* =====================
-   HERO SECTION
-===================== */
+/* Hero Section - Kafi lamba aur attractive */
 .hero {
-  background: linear-gradient(135deg, #020617, #0f172a);
-  color: white;
-  padding: 70px 40px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    height: 100vh; /* Pura screen cover karega */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
 }
 
-.hero h1 {
-  font-size: 38px;
-  font-weight: 700;
+.hero-content h1 {
+    font-size: 4rem; /* Bada Font */
+    margin-bottom: 20px;
 }
 
-.hero h3 {
-  margin-top: 10px;
-  font-weight: 400;
-  color: #cbd5f5;
+.hero-content h1 span {
+    color: #ff9800;
 }
 
-.hero p {
-  margin-top: 16px;
-  font-size: 16px;
-  color: #e5e7eb;
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    max-width: 800px;
 }
 
-/* =====================
-   BUTTON
-===================== */
-.btn {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 14px 32px;
-  background: #2563eb;
-  color: white;
-  text-decoration: none;
-  border-radius: 999px;
-  font-weight: 600;
-  transition: 0.3s;
+.btn-main {
+    padding: 15px 40px;
+    background: #ff9800;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: 0.3s;
 }
 
-.btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
+.btn-main:hover {
+    background: #e68a00;
+    transform: scale(1.1);
 }
 
-/* =====================
-   CARDS (COURSES / AFFILIATE)
-===================== */
-.card {
-  background: white;
-  padding: 28px;
-  border-radius: 18px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-  transition: 0.3s;
+/* Sections Padding - Isse page lamba lagega */
+section {
+    padding: 100px 20px;
+    text-align: center;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+h2 {
+    font-size: 3rem;
+    margin-bottom: 50px;
+    color: #333;
 }
 
-.card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
+/* Features */
+.feature-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
 }
 
-.card p {
-  font-size: 14px;
-  color: #475569;
+.feat-box {
+    width: 300px;
+    padding: 40px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
-/* =====================
-   GRID
-===================== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
-  margin-top: 35px;
+.feat-box i {
+    font-size: 50px;
+    color: #ff9800;
+    margin-bottom: 20px;
 }
 
-/* =====================
-   FOOTER
-===================== */
+/* Courses */
+.course-list {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.c-card {
+    background: white;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    width: 350px;
+}
+
+.c-card img { width: 100%; border-radius: 10px; }
+
+.btn-enroll {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #2c3e50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Reviews */
+.reviews { background: #f4f7fe; }
+.review-box {
+    max-width: 700px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+/* Footer */
 footer {
-  margin-top: 60px;
-  padding: 25px;
-  background: #020617;
-  color: #94a3b8;
-  text-align: center;
-  font-size: 14px;
+    background: #222;
+    color: white;
+    padding: 50px;
+    text-align: center;
 }
