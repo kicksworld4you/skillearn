@@ -3,7 +3,7 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>SkillLearn | User Dashboard</title>  
+    <title>SkillLearn | Dashboard</title>  
     <link rel="stylesheet" href="style.css">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
 
@@ -21,36 +21,43 @@
       };  
       firebase.initializeApp(firebaseConfig);
 
-      // Check User State
+      // Auth State Check
       firebase.auth().onAuthStateChanged((user) => {
           if (user) {
-              // User logged in hai
               document.getElementById('main-content').style.display = 'none';
               document.getElementById('dashboard-section').style.display = 'block';
               document.getElementById('user-email').innerText = user.email;
           } else {
-              // User logged out hai
               document.getElementById('main-content').style.display = 'block';
               document.getElementById('dashboard-section').style.display = 'none';
           }
       });
 
-      function showAuth() { document.getElementById('authModal').style.display = 'flex'; }
-      function closeAuth() { document.getElementById('authModal').style.display = 'none'; }
+      // Modals Open/Close Functions
+      function openLogin() { document.getElementById('loginModal').style.display = 'flex'; closeSignup(); }
+      function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+      function openSignup() { document.getElementById('signupModal').style.display = 'flex'; closeLogin(); }
+      function closeSignup() { document.getElementById('signupModal').style.display = 'none'; }
       
-      function logout() {
-          firebase.auth().signOut();
-          alert("Logged out!");
-      }
+      function logout() { firebase.auth().signOut(); }
     </script>
 
     <style>
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 10px; width: 320px; text-align: center; }
-        .modal-content input { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-        #dashboard-section { display: none; padding: 100px 20px; text-align: center; background: #f4f7f6; min-height: 100vh; }
-        .dashboard-card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: inline-block; }
-        .logout-btn { background: #e74c3c; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        .auth-btns { display: flex; gap: 10px; align-items: center; }
+        .login-nav-btn { background: transparent; border: 2px solid #f39c12; color: #f39c12; padding: 7px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .signup-nav-btn { background: #f39c12; border: 2px solid #f39c12; color: white; padding: 7px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 12px; width: 320px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .modal-content h3 { margin-bottom: 20px; color: #333; }
+        .modal-content input { width: 90%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; }
+        
+        .action-btn { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; }
+        .login-action { background: #27ae60; color: white; }
+        .signup-action { background: #2980b9; color: white; }
+        
+        #dashboard-section { display: none; padding: 80px 20px; text-align: center; background: #f0f2f5; min-height: 100vh; }
+        .dash-card { background: white; padding: 40px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     </style>
 </head>
 
@@ -64,65 +71,76 @@
             <li><a href="#courses">Courses</a></li>  
         </ul>  
         <div class="auth-btns">
-            <a onclick="showAuth()" class="nav-btn" style="background: #f39c12; cursor:pointer;">Login / Signup</a>
+            <button onclick="openLogin()" class="login-nav-btn">Login</button>
+            <button onclick="openSignup()" class="signup-nav-btn">Sign Up</button>
         </div>
     </nav>
 
     <section id="home" class="hero">  
         <div class="hero-text">  
-            <h1>Welcome to <span>SkillLearn</span></h1>  
-            <p>Login kariye apna dashboard dekhne ke liye.</p>  
-            <button onclick="showAuth()" class="btn-primary">Get Started Now</button>
+            <h1>Ready to <span>Learn & Earn?</span></h1>  
+            <p>Join India's fastest growing skill platform.</p>  
+            <button onclick="openSignup()" class="btn-primary">Start Your Journey</button>
         </div>  
     </section>
 </div>
 
-<section id="dashboard-section">
-    <div class="dashboard-card">
-        <i class="fas fa-user-circle" style="font-size: 50px; color: #3498db;"></i>
-        <h2>User Dashboard</h2>
-        <p>Welcome, <span id="user-email" style="font-weight: bold; color: #2c3e50;"></span>!</p>
-        <hr>
-        <p>Aapka course access yahan dikhega.</p>
-        <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-            <div style="padding: 20px; background: #ebf5fb; border-radius: 10px;"><h3>0</h3><p>Courses Enrolled</p></div>
-            <div style="padding: 20px; background: #eafaf1; border-radius: 10px;"><h3>₹0</h3><p>Total Earnings</p></div>
-        </div>
-        <button onclick="logout()" class="logout-btn">Logout</button>
-    </div>
-</section>
-
-<div id="authModal" class="modal">
+<div id="loginModal" class="modal">
     <div class="modal-content">
-        <h3>Login or Sign Up</h3>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
-        <button class="btn-primary" style="width: 100%; border:none; padding:12px; margin-bottom:10px;" onclick="handleSignup()">Create Account</button>
-        <button class="btn-secondary" style="width: 100%; border:none; padding:12px;" onclick="handleLogin()">Login</button>
-        <p onclick="closeAuth()" style="margin-top:15px; cursor:pointer; color:red;">Close</p>
+        <h3>Member Login</h3>
+        <input type="email" id="loginEmail" placeholder="Email Address">
+        <input type="password" id="loginPass" placeholder="Password">
+        <button class="action-btn login-action" onclick="handleLogin()">Login Now</button>
+        <p style="font-size: 13px; margin-top: 15px;">Naya account banana hai? <a href="#" onclick="openSignup()">Sign Up</a></p>
+        <p onclick="closeLogin()" style="color: #666; cursor: pointer; margin-top: 10px;">Cancel</p>
     </div>
 </div>
 
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <h3>Create Account</h3>
+        <input type="email" id="signupEmail" placeholder="Email Address">
+        <input type="password" id="signupPass" placeholder="Create Password">
+        <button class="action-btn signup-action" onclick="handleSignup()">Register Now</button>
+        <p style="font-size: 13px; margin-top: 15px;">Pehle se account hai? <a href="#" onclick="openLogin()">Login</a></p>
+        <p onclick="closeSignup()" style="color: #666; cursor: pointer; margin-top: 10px;">Cancel</p>
+    </div>
+</div>
+
+<section id="dashboard-section">
+    <div class="dash-card">
+        <h2>My Dashboard</h2>
+        <p>User: <span id="user-email"></span></p>
+        <hr style="margin: 20px 0;">
+        <div style="display: flex; gap: 15px;">
+            <div style="background: #e8f4fd; padding: 15px; border-radius: 8px;"><b>0</b><br>Courses</div>
+            <div style="background: #eafaf1; padding: 15px; border-radius: 8px;"><b>₹0</b><br>Earnings</div>
+        </div>
+        <button onclick="logout()" style="margin-top:20px; background:#e74c3c; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Logout</button>
+    </div>
+</section>
+
 <script>
-    function handleSignup() {
-        const email = document.getElementById('email').value;
-        const pass = document.getElementById('password').value;
-        firebase.auth().createUserWithEmailAndPassword(email, pass)
-            .then(() => { closeAuth(); })
-            .catch((error) => alert(error.message));
+    function handleLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const pass = document.getElementById('loginPass').value;
+        firebase.auth().signInWithEmailAndPassword(email, pass)
+            .then(() => closeLogin())
+            .catch(err => alert(err.message));
     }
 
-    function handleLogin() {
-        const email = document.getElementById('email').value;
-        const pass = document.getElementById('password').value;
-        firebase.auth().signInWithEmailAndPassword(email, pass)
-            .then(() => { closeAuth(); })
-            .catch((error) => alert(error.message));
+    function handleSignup() {
+        const email = document.getElementById('signupEmail').value;
+        const pass = document.getElementById('signupPass').value;
+        firebase.auth().createUserWithEmailAndPassword(email, pass)
+            .then(() => closeSignup())
+            .catch(err => alert(err.message));
     }
 </script>
 
 </body>  
 </html>
+
 
 
 
