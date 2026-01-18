@@ -21,21 +21,20 @@
       };  
       firebase.initializeApp(firebaseConfig);
 
-      // Auth State Observer
+      // Auth Observer: Login hai ya nahi check karega
       firebase.auth().onAuthStateChanged((user) => {
-          const landingPage = document.getElementById('landing-page');
-          const dashboardWrapper = document.getElementById('dashboard-wrapper');
           if (user) {
-              landingPage.style.display = 'none';
-              dashboardWrapper.style.display = 'flex';
+              document.getElementById('landing-page').style.display = 'none';
+              document.getElementById('dashboard-wrapper').style.display = 'flex';
               document.getElementById('user-email-display').innerText = user.email;
               showTab('dash-home');
           } else {
-              landingPage.style.display = 'block';
-              dashboardWrapper.style.display = 'none';
+              document.getElementById('landing-page').style.display = 'block';
+              document.getElementById('dashboard-wrapper').style.display = 'none';
           }
       });
 
+      // Tabs switching logic
       function showTab(tabId) {
           const tabs = document.querySelectorAll('.tab-content');
           tabs.forEach(tab => tab.style.display = 'none');
@@ -43,67 +42,62 @@
           
           const links = document.querySelectorAll('.sidebar-link');
           links.forEach(link => link.classList.remove('active'));
-          // UI update for title
-          const titleMap = {'dash-home': 'Dashboard Overview', 'dash-courses': 'My Courses', 'dash-affiliate': 'Affiliate Center'};
+          
+          const titleMap = {'dash-home': 'Overview', 'dash-courses': 'My Courses', 'dash-affiliate': 'Affiliate Panel'};
           document.getElementById('current-tab-title').innerText = titleMap[tabId];
       }
 
+      // Sidebar Toggle for Mobile
       function toggleSidebar() {
-          document.getElementById('mySidebar').classList.toggle('active');
+          const sidebar = document.getElementById('mySidebar');
+          const overlay = document.getElementById('sidebar-overlay');
+          sidebar.classList.toggle('active');
+          overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
       }
 
       function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
       function openSignup() { document.getElementById('signupModal').style.display = 'flex'; }
-      function closeModal() { 
-          document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); 
-      }
+      function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
       function logout() { firebase.auth().signOut(); }
     </script>
 
     <style>
-        /* --- DASHBOARD & SIDEBAR CSS --- */
-        #dashboard-wrapper { display: none; height: 100vh; overflow: hidden; background: #f8f9fa; }
+        /* --- Dashboard CSS --- */
+        #dashboard-wrapper { display: none; height: 100vh; overflow: hidden; background: #f4f7f6; }
         
         .sidebar { 
             width: 260px; background: #1a252f; color: white; display: flex; flex-direction: column; 
             transition: 0.3s; z-index: 2000; position: relative;
         }
 
-        .sidebar-header { padding: 25px; font-size: 22px; font-weight: bold; border-bottom: 1px solid #2c3e50; }
+        .sidebar-header { padding: 20px; font-size: 24px; font-weight: bold; text-align: center; border-bottom: 1px solid #2c3e50; }
         .sidebar-header span { color: #f39c12; }
 
-        .sidebar-link { padding: 15px 25px; cursor: pointer; color: #adb5bd; transition: 0.2s; display: flex; align-items: center; }
-        .sidebar-link i { margin-right: 12px; width: 20px; }
-        .sidebar-link:hover, .sidebar-link.active { background: #2c3e50; color: white; }
+        .sidebar-link { padding: 15px 25px; cursor: pointer; color: #adb5bd; display: flex; align-items: center; transition: 0.3s; }
+        .sidebar-link i { margin-right: 12px; }
+        .sidebar-link:hover, .sidebar-link.active { background: #2c3e50; color: white; border-left: 4px solid #f39c12; }
 
         .main-view { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-        .top-nav { padding: 15px 30px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .top-bar { padding: 15px 30px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-        .tab-content { padding: 30px; display: none; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Mobile Sidebar Adjustments */
+        /* Responsive Sidebar */
         @media (max-width: 768px) {
-            .sidebar { position: fixed; left: -260px; height: 100%; }
+            .sidebar { position: fixed; left: -260px; height: 100%; top: 0; }
             .sidebar.active { left: 0; }
             .toggle-btn { display: block !important; }
-            .top-nav { padding-left: 70px; }
+            .sidebar-close { display: block !important; }
         }
 
-        .toggle-btn { 
-            display: none; position: fixed; top: 12px; left: 15px; 
-            z-index: 2100; background: #1a252f; color: white; border: none; 
-            padding: 10px 12px; border-radius: 4px; cursor: pointer;
-        }
+        .toggle-btn { display: none; background: #1a252f; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
+        .sidebar-close { display: none; text-align: right; padding: 10px; font-size: 25px; cursor: pointer; color: #f39c12; }
 
-        /* Stats Cards */
-        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-        .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #f39c12; }
-
-        /* Modal Styles */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 5000; justify-content: center; align-items: center; }
+        /* General UI */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
         .modal-content { background: white; padding: 30px; border-radius: 10px; width: 320px; text-align: center; }
-        .modal-content input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        .modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        
+        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: center; margin-bottom: 20px; flex: 1; }
+        .tab-content { padding: 25px; display: none; }
     </style>
 </head>
 
@@ -113,72 +107,65 @@
     <nav class="navbar">  
         <div class="logo">Skill<span>Learn</span></div>  
         <div class="auth-btns">
-            <button onclick="openLogin()" class="login-nav-btn">Login</button>
-            <button onclick="openSignup()" class="signup-nav-btn">Sign Up</button>
+            <button onclick="openLogin()" class="btn-secondary">Login</button>
+            <button onclick="openSignup()" class="btn-primary">Sign Up</button>
         </div>
     </nav>
-
-    <section id="home" class="hero">  
-        <div class="hero-text">  
-            <h1>India's Powerful <br><span>Skill Transformation</span> Platform</h1>  
-            <p>Sikhiye aur kamaaiye. Career ko naya mod dijiye.</p>  
-            <button onclick="openSignup()" class="btn-primary">Get Started Now</button>
-        </div>  
+    <section class="hero">
+        <div class="hero-text">
+            <h1>India's Most Powerful <br><span>Skill Platform</span></h1>
+            <p>Sikhiye aur kamaiye online. Login karein dashboard dekhne ke liye.</p>
+            <button onclick="openSignup()" class="btn-primary">Enroll Now</button>
+        </div>
     </section>
-    </div>
+</div>
 
 <div id="dashboard-wrapper">
-    <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div id="sidebar-overlay" onclick="toggleSidebar()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1900;"></div>
 
     <aside class="sidebar" id="mySidebar">
+        <div class="sidebar-close" onclick="toggleSidebar()">&times; Back</div>
         <div class="sidebar-header">Skill<span>Learn</span></div>
-        <div class="sidebar-link active" onclick="showTab('dash-home'); if(window.innerWidth<768) toggleSidebar();"><i class="fas fa-th-large"></i> Overview</div>
-        <div class="sidebar-link" onclick="showTab('dash-courses'); if(window.innerWidth<768) toggleSidebar();"><i class="fas fa-play-circle"></i> My Courses</div>
-        <div class="sidebar-link" onclick="showTab('dash-affiliate'); if(window.innerWidth<768) toggleSidebar();"><i class="fas fa-hand-holding-usd"></i> Affiliate</div>
-        <div class="sidebar-link" onclick="logout()" style="margin-top: auto; color: #e74c3c;"><i class="fas fa-sign-out-alt"></i> Logout</div>
+        <div class="sidebar-link active" onclick="showTab('dash-home'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-home"></i> Dashboard</div>
+        <div class="sidebar-link" onclick="showTab('dash-courses'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-play-circle"></i> My Courses</div>
+        <div class="sidebar-link" onclick="showTab('dash-affiliate'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-wallet"></i> Affiliate</div>
+        <div class="sidebar-link" onclick="logout()" style="margin-top:auto; color:#ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</div>
     </aside>
 
     <main class="main-view">
-        <header class="top-nav">
-            <h3 id="current-tab-title">Dashboard Overview</h3>
-            <div class="user-info"><i class="fas fa-user-circle"></i> <span id="user-email-display"></span></div>
+        <header class="top-bar">
+            <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i> Menu</button>
+            <h3 id="current-tab-title">Overview</h3>
+            <div style="font-size: 14px;"><i class="fas fa-user"></i> <span id="user-email-display"></span></div>
         </header>
 
         <div id="dash-home" class="tab-content">
-            <div class="stat-grid">
-                <div class="stat-card"><h4>0</h4><p>Enrolled Courses</p></div>
-                <div class="stat-card"><h4>₹0</h4><p>Total Earnings</p></div>
-                <div class="stat-card"><h4>0</h4><p>Today's Clicks</p></div>
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                <div class="stat-card"><h3>0</h3><p>Active Courses</p></div>
+                <div class="stat-card"><h3>₹0</h3><p>Total Earnings</p></div>
             </div>
-            <div style="margin-top: 30px; background: white; padding: 20px; border-radius: 8px;">
-                <h4>Notice Board</h4>
-                <p style="color: #7f8c8d;">Welcome to SkillLearn! New courses are coming soon.</p>
+            <div style="background:white; padding:20px; border-radius:10px; margin-top:20px;">
+                <h4>Welcome Note</h4>
+                <p>Aapka swagat hai! Apne courses ko My Courses section mein check karein.</p>
             </div>
         </div>
 
         <div id="dash-courses" class="tab-content">
-            <h2>My Library</h2>
-            <p>Aapke saare courses yahan dikhenge.</p>
-            <div style="text-align: center; padding: 50px; color: #95a5a6;">
-                <i class="fas fa-lock" style="font-size: 40px;"></i>
-                <p>No active courses found. <a href="#">Explore Marketplace</a></p>
-            </div>
+            <h3>My Courses</h3>
+            <p>Abhi tak koi course active nahi hai.</p>
         </div>
 
         <div id="dash-affiliate" class="tab-content">
-            <h2>Affiliate Dashboard</h2>
-            <div class="stat-card" style="margin-top: 20px;">
-                <p>Referral Link:</p>
-                <input type="text" readonly value="https://skilllearn.in/join?ref=user" style="width: 70%; padding: 8px;">
-                <button class="btn-primary" style="padding: 8px 15px;">Copy</button>
-            </div>
+            <h3>Affiliate Panel</h3>
+            <p>Your Link: <code>https://skilllearn.in/join?ref=user</code></p>
+            <button class="btn-primary" style="margin-top:10px;">Copy Link</button>
         </div>
     </main>
 </div>
 
 <div id="loginModal" class="modal">
     <div class="modal-content">
-        <h3>User Login</h3>
+        <h3>Login</h3>
         <input type="email" id="lEmail" placeholder="Email">
         <input type="password" id="lPass" placeholder="Password">
         <button onclick="handleLogin()" class="btn-primary" style="width:100%">Login</button>
@@ -209,3 +196,4 @@
 
 </body>  
 </html>
+
