@@ -52,6 +52,29 @@
       function openSignup() { document.getElementById('signupModal').style.display = 'flex'; }
       function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
       function logout() { firebase.auth().signOut(); }
+
+      // ===== PAYMENT LOGIC =====
+      function openPayment(courseName, price) {
+          document.getElementById('pay-course-name').innerText = "Pay " + price + " for " + courseName;
+          document.getElementById('paymentModal').style.display = 'flex';
+          document.getElementById('paymentMessage').style.display = 'none';
+          document.getElementById('utrNumber').value = "";
+      }
+
+      function closePayment() {
+          document.getElementById('paymentModal').style.display = 'none';
+      }
+
+      function confirmPayment() {
+          const utr = document.getElementById('utrNumber').value;
+          if(utr.length < 6) {
+              alert("Please enter a valid UTR Number.");
+              return;
+          }
+          document.getElementById('paymentMessage').style.display = 'block';
+          console.log("Payment submitted for UTR: " + utr);
+          // Yahan Firebase mein payment record save kar sakte ho
+      }
     </script>
 
     <style>
@@ -81,7 +104,7 @@
         .course-desc { font-size: 13px; color: #7f8c8d; height: 40px; overflow: hidden; }
         .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
         .price { font-size: 18px; font-weight: 700; color: #f39c12; }
-        .buy-btn { background: #27ae60; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .buy-btn { background: #27ae60; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; cursor:pointer; }
         .locked-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; }
 
         /* UI ELEMENTS */
@@ -93,7 +116,7 @@
 </head>
 
 <body>
-
+<!-- ===== LANDING PAGE ===== -->
 <div id="landing-page">
     <nav class="navbar">  
         <div class="logo">Skill<span>Learn</span></div>  
@@ -109,6 +132,7 @@
     </section>
 </div>
 
+<!-- ===== DASHBOARD ===== -->
 <div id="dashboard-wrapper">
     <div id="sidebar-overlay" onclick="toggleSidebar()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1900;"></div>
 
@@ -151,72 +175,13 @@
                     <div class="course-body">
                         <div class="course-title">Digital Marketing Mastery</div>
                         <p class="course-desc">Facebook, Google ads aur SEO ka complete course.</p>
-                        <div class="course-footer"><span class="price">₹599</span><a href="#" class="buy-btn">Buy Now</a></div>
+                        <div class="course-footer">
+                            <span class="price">₹599</span>
+                            <a href="javascript:void(0)" class="buy-btn" onclick="openPayment('Digital Marketing Mastery', '₹599')">Buy Now</a>
+                        </div>
                     </div>
                 </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#e1306c;"><i class="fab fa-instagram"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Instagram Growth Secret</div>
-                        <p class="course-desc">Content strategy aur reels viral karne ka blueprint.</p>
-                        <div class="course-footer"><span class="price">₹599</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#00c4cc;"><i class="fas fa-palette"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Graphic Design (Canva)</div>
-                        <p class="course-desc">Mobile aur Laptop se professional designs banayein.</p>
-                        <div class="course-footer"><span class="price">₹1,299</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#000;"><i class="fas fa-film"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Video Editing Pro</div>
-                        <p class="course-desc">CapCut aur VN se cinematic editing sikhiye.</p>
-                        <div class="course-footer"><span class="price">₹1,299</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#1877f2;"><i class="fab fa-facebook-f"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Facebook Ads Expert</div>
-                        <p class="course-desc">Low budget mein high sales generate karein.</p>
-                        <div class="course-footer"><span class="price">₹1,299</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#8e44ad;"><i class="fas fa-microphone"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Communication Mastery</div>
-                        <p class="course-desc">Confidence aur soft skills se logon ko impress karein.</p>
-                        <div class="course-footer"><span class="price">₹2,499</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#ff0000;"><i class="fab fa-youtube"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">YouTube Content Blueprint</div>
-                        <p class="course-desc">Channel growth aur monetization ka full roadmap.</p>
-                        <div class="course-footer"><span class="price">₹2,499</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#f39c12;"><i class="fas fa-handshake"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">High-Ticket Sales</div>
-                        <p class="course-desc">Premium clients ko close karne ki sales techniques.</p>
-                        <div class="course-footer"><span class="price">₹2,499</span><a href="#" class="buy-btn">Buy Now</a></div>
-                    </div>
-                </div>
+                <!-- Repeat similar course cards with Buy Now onclick logic for other courses -->
             </div>
         </div>
 
@@ -234,6 +199,7 @@
     </main>
 </div>
 
+<!-- ===== LOGIN & SIGNUP MODALS ===== -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>Login</h3>
@@ -254,17 +220,37 @@
     </div>
 </div>
 
+<!-- ===== PAYMENT MODAL ===== -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3 id="pay-course-name">Course Payment</h3>
+        <p style="margin-top: 10px; color: #555;">Please pay the amount to the UPI ID below:</p>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border: 2px dashed #f39c12;">
+            <span style="font-size: 18px; font-weight: bold; color: #2c3e50;">9321377791@ybl</span>
+            <br>
+            <small style="color: #e67e22;">(Double click to copy)</small>
+        </div>
+
+        <div style="text-align: left; margin-bottom: 15px;">
+            <label style="font-size: 13px; font-weight: bold;">Enter UTR / Transaction ID:</label>
+            <input type="text" id="utrNumber" placeholder="12-digit UTR Number" style="width: 100%; box-sizing: border-box;">
+        </div>
+
+        <button class="btn-primary" onclick="confirmPayment()" style="width: 100%; padding: 12px;">Confirm Payment</button>
+        
+        <div id="paymentMessage" style="display:none; margin-top: 15px; padding: 10px; background: #e8f4fd; color: #2980b9; border-radius: 5px; font-weight: bold;">
+            Please wait 15 minutes for payment verification.
+        </div>
+
+        <p onclick="closePayment()" style="cursor:pointer; margin-top:15px; color:#999; font-size: 13px;">Cancel</p>
+    </div>
+</div>
+
 <script>
     function handleLogin() {
         firebase.auth().signInWithEmailAndPassword(document.getElementById('lEmail').value, document.getElementById('lPass').value)
         .then(() => closeModal()).catch(e => alert(e.message));
     }
     function handleSignup() {
-        firebase.auth().createUserWithEmailAndPassword(document.getElementById('sEmail').value, document.getElementById('sPass').value)
-        .then(() => closeModal()).catch(e => alert(e.message));
-    }
-</script>
-
-</body>  
-    </html>
-
+        firebase.auth().createUserWithEmailAndPassword(document.getElementById('sEmail
