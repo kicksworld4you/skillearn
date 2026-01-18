@@ -1,14 +1,17 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arman's Dashboard | Learn & Earn</title>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
 
+    <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="logo">Skill<span>Learn</span></div>
         <ul class="nav-links">
@@ -18,9 +21,12 @@
             <li><a href="#affiliate">Affiliate</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="nav-btn">Enroll Now</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="nav-btn">
+            Enroll Now
+        </a>
     </nav>
 
+    <!-- ===== HERO ===== -->
     <section id="home" class="hero">
         <div class="hero-text">
             <h1>India's Most Powerful <br><span>Skill Transformation</span> Platform</h1>
@@ -32,11 +38,15 @@
         </div>
     </section>
 
+    <!-- ===== ABOUT ===== -->
     <section id="about" class="about">
         <div class="about-container">
             <div class="about-info">
                 <h2>About <span>SkillLearn</span></h2>
-                <p>Humara maqsad har young Indian ko digital marketing, content creation, aur sales mein expert banana hai. Hum sirf sikhaate nahi, balki kamaane ka rasta bhi dikhaate hain.</p>
+                <p>
+                    Humara maqsad har young Indian ko digital marketing, content creation,
+                    aur sales mein expert banana hai.
+                </p>
                 <ul>
                     <li><i class="fas fa-check-circle"></i> Best Quality Video Courses</li>
                     <li><i class="fas fa-check-circle"></i> Weekly Live Training</li>
@@ -46,9 +56,11 @@
         </div>
     </section>
 
+    <!-- ===== COURSES ===== -->
     <section id="courses" class="courses">
         <p class="sub-title">Top Trending</p>
         <h2>Our <span>Premium Packages</span></h2>
+
         <div class="course-grid">
             <div class="package-card">
                 <div class="pkg-tag">Most Popular</div>
@@ -59,8 +71,11 @@
                     <li>Sales Mastery</li>
                     <li>24/7 Support</li>
                 </ul>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="buy-btn">Get Started</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="buy-btn">
+                    Get Started
+                </a>
             </div>
+
             <div class="package-card gold">
                 <div class="pkg-tag">Best Value</div>
                 <h3>GOLD</h3>
@@ -70,14 +85,18 @@
                     <li>Canva Mastery</li>
                     <li>Personal Branding</li>
                 </ul>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="buy-btn">Get Started</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdg9ktDpYnB5f_Je56o2jIa22qxZ3IcIExkRhhu4lS6ERL7KA/viewform" class="buy-btn">
+                    Get Started
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- ===== AFFILIATE ===== -->
     <section id="affiliate" class="affiliate">
         <h2>Become An <span>Affiliate</span></h2>
-        <p>Aap humare courses ko promote karke 90% tak ka commission kama sakte hain.</p>
+        <p>Courses promote karke 90% tak commission kama sakte hain.</p>
+
         <div class="affiliate-steps">
             <div class="step">1. Join Us</div>
             <div class="step">2. Promote</div>
@@ -85,11 +104,12 @@
         </div>
     </section>
 
+    <!-- ===== CONTACT ===== -->
     <section id="contact" class="contact">
         <h2>Contact Us</h2>
         <div class="contact-card">
-            <p><i class="fas fa-envelope"></i> Support: homeshaikhs1@gmail.com</p>
-            <p><i class="fab fa-whatsapp"></i> WhatsApp: +91 9321377791</p>
+            <p><i class="fas fa-envelope"></i> homeshaikhs1@gmail.com</p>
+            <p><i class="fab fa-whatsapp"></i> +91 9321377791</p>
         </div>
     </section>
 
@@ -97,7 +117,24 @@
         <p>&copy; 2026 SkillLearn | All Rights Reserved.</p>
     </footer>
 
+    <!-- ===== FIREBASE SDK (CORRECT PLACE) ===== -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyByySH5u93ltrhej8W1PB0MsW5eVicFrw8",
+            authDomain: "skillearn-3af71.firebaseapp.com",
+            projectId: "skillearn-3af71",
+            storageBucket: "skillearn-3af71.firebasestorage.app",
+            messagingSenderId: "472123785889",
+            appId: "1:472123785889:web:578122950a7acaea4466e0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
 </body>
-                                                      </html>
+</html>
 
 
