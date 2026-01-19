@@ -1,122 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Arman's Dashboard | SkilLearn</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkilLearn | Learn & Earn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+    body{background:#f4f4f4}/* Navbar */
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:20px 8%;background:#fff;box-shadow:0 5px 15px rgba(0,0,0,.1);position:sticky;top:0}
+.logo{font-size:28px;font-weight:700}
+.logo span{color:#ff9800}
+.nav-links a{margin:0 15px;text-decoration:none;color:#333;font-weight:500}
+.nav-btn{background:#ff9800;color:#fff;padding:10px 20px;border-radius:5px;text-decoration:none}
 
-<style>
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#f4f6f8;
-}
+/* Hero */
+.hero{height:90vh;background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3');background-size:cover;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.hero h1{font-size:3.2rem}
+.hero h1 span{color:#ff9800}
+.hero p{margin:20px 0;font-size:1.2rem}
+.btn{display:inline-block;margin:10px;padding:15px 30px;border-radius:5px;text-decoration:none}
+.btn-primary{background:#ff9800;color:#fff}
+.btn-secondary{border:2px solid #fff;color:#fff}
 
-/* Top Bar */
-.topbar{
-    background:#111;
-    color:#fff;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.topbar button{
-    padding:8px 15px;
-    border:none;
-    background:#ff9800;
-    color:#000;
-    cursor:pointer;
-    margin-left:10px;
-    border-radius:4px;
-}
+/* Courses */
+section{padding:80px 8%;text-align:center}
+h2{font-size:2.5rem}
+h2 span{color:#ff9800}
+.course-grid{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.package{background:#fff;padding:35px;width:320px;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.price{font-size:2rem;margin:15px 0}
+.buy-btn{background:#333;color:#fff;padding:12px;border-radius:5px;text-decoration:none;display:block}
 
 /* Modal */
-.modal{
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-}
-.modal-content{
-    background:#fff;
-    width:90%;
-    max-width:350px;
-    margin:100px auto;
-    padding:20px;
-    border-radius:8px;
-}
-.modal-content h2{
-    text-align:center;
-}
-.modal-content input{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-}
-.modal-content button{
-    width:100%;
-    padding:10px;
-    background:#111;
-    color:#fff;
-    border:none;
-    cursor:pointer;
-}
-.close{
-    text-align:right;
-    cursor:pointer;
-    font-size:18px;
-}
-</style>
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);justify-content:center;align-items:center}
+.modal-box{background:#fff;padding:30px;border-radius:10px;width:300px;text-align:center}
+.modal-box input{width:100%;padding:10px;margin:10px 0}
+.close{cursor:pointer;color:red;font-weight:bold}
+
+footer{background:#222;color:#fff;padding:30px;text-align:center}
+
+  </style>
 </head>
-
-<body>
-
-<!-- Top Bar -->
-<div class="topbar">
-    <div><b>SkilLearn</b></div>
+<body>  <!-- Navbar -->  <div class="navbar">
+    <div class="logo">Skil<span>Learn</span></div>
+    <div class="nav-links">
+      <a href="#courses">Courses</a>
+      <a href="#" onclick="openAuth()">Login / Signup</a>
+    </div>
+    <a href="#courses" class="nav-btn">Buy Course</a>
+  </div>  <!-- Hero -->  <div class="hero">
     <div>
-        <button onclick="openLogin()">Login</button>
-        <button onclick="openSignup()">Sign Up</button>
+      <h1>Learn <span>Skills</span> & Earn Online</h1>
+      <p>India's easiest learning platform</p>
+      <a href="#courses" class="btn btn-primary">Explore Courses</a>
+      <a href="#" onclick="openAuth()" class="btn btn-secondary">Login</a>
     </div>
-</div>
-
-<!-- LOGIN MODAL -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <div class="close" onclick="closeModal('loginModal')">✖</div>
-        <h2>Login</h2>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Login</button>
+  </div>  <!-- Courses -->  <section id="courses">
+    <h2>Our <span>Courses</span></h2>
+    <div class="course-grid">
+      <div class="package">
+        <h3>Affiliate Marketing</h3>
+        <div class="price">₹999</div>
+        <a href="#" class="buy-btn" onclick="openPayment(999)">Buy Now</a>
+      </div>
     </div>
-</div>
-
-<!-- SIGNUP MODAL -->
-<div class="modal" id="signupModal">
-    <div class="modal-content">
-        <div class="close" onclick="closeModal('signupModal')">✖</div>
-        <h2>Sign Up</h2>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Create Account</button>
+  </section>  <!-- Auth Modal -->  <div class="modal" id="authModal">
+    <div class="modal-box">
+      <div class="close" onclick="closeAuth()">X</div>
+      <h3>Login / Signup</h3>
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button class="buy-btn">Submit</button>
     </div>
-</div>
-
-<script>
-function openLogin(){
-    document.getElementById("loginModal").style.display="block";
-}
-function openSignup(){
-    document.getElementById("signupModal").style.display="block";
-}
-function closeModal(id){
-    document.getElementById(id).style.display="none";
-}
-</script>
-
-</body>
-</html>
+  </div>  <!-- Payment Modal -->  <div class="modal" id="payModal">
+    <div class="modal-box">
+      <div class="close" onclick="closePay()">X</div>
+      <h3>Pay via UPI</h3>
+      <p><b>UPI ID:</b> 9321377791@ybl</p>
+      <input type="text" placeholder="Enter UTR Number">
+      <button class="buy-btn" onclick="confirmPay()">Confirm Payment</button>
+    </div>
+  </div>  <footer>
+    <p>© 2026 SkilLearn | Created by Armaan</p>
+  </footer>  <script>
+    function openAuth(){document.getElementById('authModal').style.display='flex'}
+    function closeAuth(){document.getElementById('authModal').style.display='none'}
+    function openPayment(){document.getElementById('payModal').style.display='flex'}
+    function closePay(){document.getElementById('payModal').style.display='none'}
+    function confirmPay(){alert('Payment received. Please wait 15 minutes for verification.')}
+  </script></body>
+        </html>
