@@ -8,7 +8,7 @@
     scroll-behavior: smooth;
 }
 
-/* Navbar */
+/* ================= NAVBAR ================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,12 @@
 
 .nav-links { list-style: none; display: flex; }
 .nav-links li { margin: 0 15px; }
-.nav-links a { text-decoration: none; color: #333; font-weight: 500; font-size: 1.1rem; }
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
 .nav-links a:hover { color: #ff9800; }
 
 .nav-btn {
@@ -38,11 +43,14 @@
     font-weight: bold;
 }
 
-/* Hero */
+/* ================= HERO ================= */
 .hero {
     height: 90vh;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1350&q=80');
+    background:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1350&q=80');
     background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,16 +62,50 @@
 .hero h1 span { color: #ff9800; }
 .hero p { font-size: 1.3rem; margin-bottom: 30px; }
 
-.btn-primary { background: #ff9800; padding: 15px 30px; color: white; text-decoration: none; border-radius: 5px; margin: 10px; display: inline-block; font-size: 1.1rem; }
-.btn-secondary { border: 2px solid white; padding: 13px 30px; color: white; text-decoration: none; border-radius: 5px; margin: 10px; display: inline-block; font-size: 1.1rem; }
+.btn-primary {
+    background: #ff9800;
+    padding: 15px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+}
 
-/* Sections Common Styling */
-section { padding: 100px 8%; text-align: center; }
+.btn-secondary {
+    border: 2px solid white;
+    padding: 13px 30px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+    font-size: 1.1rem;
+}
+
+/* ================= COMMON SECTIONS ================= */
+section {
+    padding: 100px 8%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
 h2 { font-size: 2.5rem; margin-bottom: 30px; }
 h2 span { color: #ff9800; }
 
-/* Courses Grid */
-.course-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; }
+/* ================= COURSE GRID ================= */
+.course-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
 .package-card {
     background: #f9f9f9;
     padding: 40px;
@@ -73,19 +115,91 @@ h2 span { color: #ff9800; }
     border: 1px solid #ddd;
     transition: 0.3s;
 }
-.package-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-.pkg-tag { background: #ff9800; color: white; padding: 5px 10px; position: absolute; top: -10px; left: 20px; border-radius: 5px; }
 
-.price { font-size: 2rem; font-weight: 700; margin: 20px 0; }
-.price span { font-size: 1rem; text-decoration: line-through; color: #888; }
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
 
-.buy-btn { display: block; background: #333; color: white; padding: 12px; border-radius: 5px; text-decoration: none; margin-top: 20px; }
+.pkg-tag {
+    background: #ff9800;
+    color: white;
+    padding: 5px 10px;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    border-radius: 5px;
+}
 
-/* Footer */
-footer { background: #222; color: white; padding: 40px; }
+.price {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0;
+}
 
-/* Mobile Responsive */
+.price span {
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: #888;
+}
+
+.buy-btn {
+    display: block;
+    background: #333;
+    color: white;
+    padding: 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* ================= MODAL (MOST IMPORTANT FIX) ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999; /* 🔥 VERY IMPORTANT */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: popup 0.3s ease;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* popup animation */
+@keyframes popup {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ================= FOOTER ================= */
+footer {
+    background: #222;
+    color: white;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .hero h1 { font-size: 2.2rem; }
-}
+    }
