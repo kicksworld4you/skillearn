@@ -1,256 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>SkillLearn | Learn & Earn Platform</title>  
-    <link rel="stylesheet" href="style.css">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">  
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Arman's Dashboard | SkilLearn</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>  
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>  
-    
-    <script>  
-      const firebaseConfig = {  
-        apiKey: "AIzaSyByySH5u93ltrhej8W1PB0MsW5eVicFrw8",  
-        authDomain: "skillearn-3af71.firebaseapp.com",  
-        projectId: "skillearn-3af71",  
-        storageBucket: "skillearn-3af71.firebasestorage.app",  
-        messagingSenderId: "472123785889",  
-        appId: "1:472123785889:web:578122950a7acaea4466e0"  
-      };  
-      firebase.initializeApp(firebaseConfig);
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f6f8;
+}
 
-      firebase.auth().onAuthStateChanged((user) => {
-          if (user) {
-              document.getElementById('landing-page').style.display = 'none';
-              document.getElementById('dashboard-wrapper').style.display = 'flex';
-              document.getElementById('user-email-display').innerText = user.email;
-              showTab('dash-home');
-          } else {
-              document.getElementById('landing-page').style.display = 'block';
-              document.getElementById('dashboard-wrapper').style.display = 'none';
-          }
-      });
+/* Top Bar */
+.topbar{
+    background:#111;
+    color:#fff;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.topbar button{
+    padding:8px 15px;
+    border:none;
+    background:#ff9800;
+    color:#000;
+    cursor:pointer;
+    margin-left:10px;
+    border-radius:4px;
+}
 
-      function showTab(tabId) {
-          const tabs = document.querySelectorAll('.tab-content');
-          tabs.forEach(tab => tab.style.display = 'none');
-          document.getElementById(tabId).style.display = 'block';
-          const titleMap = {'dash-home': 'Overview', 'dash-courses': 'Marketplace', 'dash-affiliate': 'Affiliate Panel'};
-          document.getElementById('current-tab-title').innerText = titleMap[tabId];
-      }
-
-      function toggleSidebar() {
-          const sidebar = document.getElementById('mySidebar');
-          const overlay = document.getElementById('sidebar-overlay');
-          sidebar.classList.toggle('active');
-          overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
-      }
-
-      function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-      function openSignup() { document.getElementById('signupModal').style.display = 'flex'; }
-      function closeModal() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-      function logout() { firebase.auth().signOut(); }
-
-      // ===== PAYMENT LOGIC =====
-      function openPayment(courseName, price) {
-          document.getElementById('pay-course-name').innerText = "Pay " + price + " for " + courseName;
-          document.getElementById('paymentModal').style.display = 'flex';
-          document.getElementById('paymentMessage').style.display = 'none';
-          document.getElementById('utrNumber').value = "";
-      }
-
-      function closePayment() {
-          document.getElementById('paymentModal').style.display = 'none';
-      }
-
-      function confirmPayment() {
-          const utr = document.getElementById('utrNumber').value;
-          if(utr.length < 6) {
-              alert("Please enter a valid UTR Number.");
-              return;
-          }
-          document.getElementById('paymentMessage').style.display = 'block';
-          console.log("Payment submitted for UTR: " + utr);
-          // Yahan Firebase mein payment record save kar sakte ho
-      }
-    </script>
-
-    <style>
-        /* DASHBOARD STYLES */
-        #dashboard-wrapper { display: none; height: 100vh; overflow: hidden; background: #f4f7f6; }
-        .sidebar { width: 260px; background: #1a252f; color: white; display: flex; flex-direction: column; transition: 0.3s; z-index: 2000; position: relative; }
-        .sidebar-header { padding: 20px; font-size: 24px; font-weight: bold; border-bottom: 1px solid #2c3e50; }
-        .sidebar-link { padding: 15px 25px; cursor: pointer; color: #adb5bd; display: flex; align-items: center; transition: 0.3s; }
-        .sidebar-link:hover, .sidebar-link.active { background: #2c3e50; color: white; border-left: 4px solid #f39c12; }
-        .main-view { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-        .top-bar { padding: 15px 30px; background: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        
-        @media (max-width: 768px) {
-            .sidebar { position: fixed; left: -260px; height: 100%; top: 0; }
-            .sidebar.active { left: 0; }
-            .toggle-btn { display: block !important; }
-        }
-        .toggle-btn { display: none; background: #1a252f; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px; }
-
-        /* COURSE CARDS STYLES */
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .course-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; position: relative; border: 1px solid #eee; }
-        .course-card:hover { transform: translateY(-5px); }
-        .course-banner { height: 140px; background: #34495e; display: flex; align-items: center; justify-content: center; font-size: 40px; color: white; }
-        .course-body { padding: 15px; }
-        .course-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #2c3e50; }
-        .course-desc { font-size: 13px; color: #7f8c8d; height: 40px; overflow: hidden; }
-        .course-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
-        .price { font-size: 18px; font-weight: 700; color: #f39c12; }
-        .buy-btn { background: #27ae60; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; cursor:pointer; }
-        .locked-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; }
-
-        /* UI ELEMENTS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 10px; width: 320px; text-align: center; }
-        .modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        .btn-primary { background: #f39c12; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    </style>
+/* Modal */
+.modal{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+}
+.modal-content{
+    background:#fff;
+    width:90%;
+    max-width:350px;
+    margin:100px auto;
+    padding:20px;
+    border-radius:8px;
+}
+.modal-content h2{
+    text-align:center;
+}
+.modal-content input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+.modal-content button{
+    width:100%;
+    padding:10px;
+    background:#111;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+}
+.close{
+    text-align:right;
+    cursor:pointer;
+    font-size:18px;
+}
+</style>
 </head>
 
 <body>
-<!-- ===== LANDING PAGE ===== -->
-<div id="landing-page">
-    <nav class="navbar">  
-        <div class="logo">Skill<span>Learn</span></div>  
-        <div class="auth-btns">
-            <button onclick="openLogin()" style="background:none; border:1px solid #f39c12; color:#f39c12; padding:8px 15px; border-radius:5px; cursor:pointer;">Login</button>
-            <button onclick="openSignup()" class="btn-primary" style="margin-left:10px;">Sign Up</button>
-        </div>
-    </nav>
-    <section class="hero" style="text-align:center; padding: 100px 20px;">
-        <h1>Sikhiye High-Demand Skills <br>Aur Banaiye Career</h1>
-        <p>Login karke 8+ premium courses ka access payein.</p>
-        <button onclick="openSignup()" class="btn-primary" style="margin-top:20px; padding: 15px 30px; font-size:18px;">Get Started Now</button>
-    </section>
-</div>
 
-<!-- ===== DASHBOARD ===== -->
-<div id="dashboard-wrapper">
-    <div id="sidebar-overlay" onclick="toggleSidebar()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1900;"></div>
-
-    <aside class="sidebar" id="mySidebar">
-        <div class="sidebar-header" style="color:#f39c12;">SkillLearn</div>
-        <div class="sidebar-link active" onclick="showTab('dash-home'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-chart-line"></i> Dashboard</div>
-        <div class="sidebar-link" onclick="showTab('dash-courses'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-graduation-cap"></i> Marketplace</div>
-        <div class="sidebar-link" onclick="showTab('dash-affiliate'); if(window.innerWidth<=768) toggleSidebar();"><i class="fas fa-coins"></i> Affiliate</div>
-        <div class="sidebar-link" onclick="logout()" style="margin-top:auto; color:#ff4d4d;"><i class="fas fa-sign-out-alt"></i> Logout</div>
-    </aside>
-
-    <main class="main-view">
-        <header class="top-bar">
-            <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i> Menu</button>
-            <h3 id="current-tab-title">Dashboard</h3>
-            <div style="font-size: 13px; color:#2c3e50;"><i class="fas fa-user-circle"></i> <span id="user-email-display"></span></div>
-        </header>
-
-        <div id="dash-home" class="tab-content">
-            <div style="display:flex; gap:15px; flex-wrap:wrap;">
-                <div style="background:white; padding:20px; border-radius:10px; flex:1; min-width:200px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
-                    <h2 style="color:#f39c12;">0</h2><p>Courses Enrolled</p>
-                </div>
-                <div style="background:white; padding:20px; border-radius:10px; flex:1; min-width:200px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
-                    <h2 style="color:#27ae60;">₹0</h2><p>Total Earnings</p>
-                </div>
-            </div>
-            <div style="margin-top:30px; background:white; padding:25px; border-radius:10px;">
-                <h4>Welcome to SkillLearn Dashboard</h4>
-                <p style="color:#7f8c8d; font-size:14px; margin-top:10px;">Aapka account active hai. Niche Marketplace se naye skills sikhna shuru karein.</p>
-            </div>
-        </div>
-
-        <div id="dash-courses" class="tab-content">
-            <h3>Premium Skills Marketplace</h3>
-            <div class="course-grid">
-                <div class="course-card">
-                    <div class="locked-badge"><i class="fas fa-lock"></i> Locked</div>
-                    <div class="course-banner" style="background:#2980b9;"><i class="fas fa-bullhorn"></i></div>
-                    <div class="course-body">
-                        <div class="course-title">Digital Marketing Mastery</div>
-                        <p class="course-desc">Facebook, Google ads aur SEO ka complete course.</p>
-                        <div class="course-footer">
-                            <span class="price">₹599</span>
-                            <a href="javascript:void(0)" class="buy-btn" onclick="openPayment('Digital Marketing Mastery', '₹599')">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Repeat similar course cards with Buy Now onclick logic for other courses -->
-            </div>
-        </div>
-
-        <div id="dash-affiliate" class="tab-content">
-            <h3>Affiliate Panel</h3>
-            <div style="background:white; padding:20px; border-radius:10px; margin-top:20px;">
-                <p>Aapka Unique Referral Link:</p>
-                <div style="display:flex; gap:10px; margin-top:10px;">
-                    <input type="text" readonly value="https://skilllearn.in/join?ref=user" style="flex:1; padding:10px; border:1px solid #ddd;">
-                    <button class="btn-primary" onclick="alert('Link Copied!')">Copy</button>
-                </div>
-                <p style="margin-top:20px; font-size:14px; color:#7f8c8d;">Doston ko share karein aur 90% commission kamayein.</p>
-            </div>
-        </div>
-    </main>
-</div>
-
-<!-- ===== LOGIN & SIGNUP MODALS ===== -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h3>Login</h3>
-        <input type="email" id="lEmail" placeholder="Email">
-        <input type="password" id="lPass" placeholder="Password">
-        <button onclick="handleLogin()" class="btn-primary" style="width:100%">Login</button>
-        <p onclick="closeModal()" style="cursor:pointer; margin-top:10px; color:red; font-size:13px;">Close</p>
+<!-- Top Bar -->
+<div class="topbar">
+    <div><b>SkilLearn</b></div>
+    <div>
+        <button onclick="openLogin()">Login</button>
+        <button onclick="openSignup()">Sign Up</button>
     </div>
 </div>
 
-<div id="signupModal" class="modal">
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
     <div class="modal-content">
-        <h3>Sign Up</h3>
-        <input type="email" id="sEmail" placeholder="Email">
-        <input type="password" id="sPass" placeholder="Password">
-        <button onclick="handleSignup()" class="btn-primary" style="width:100%">Create Account</button>
-        <p onclick="closeModal()" style="cursor:pointer; margin-top:10px; color:red; font-size:13px;">Close</p>
+        <div class="close" onclick="closeModal('loginModal')">✖</div>
+        <h2>Login</h2>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Login</button>
     </div>
 </div>
 
-<!-- ===== PAYMENT MODAL ===== -->
-<div id="paymentModal" class="modal">
-    <div class="modal-content" style="max-width: 400px;">
-        <h3 id="pay-course-name">Course Payment</h3>
-        <p style="margin-top: 10px; color: #555;">Please pay the amount to the UPI ID below:</p>
-        
-        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border: 2px dashed #f39c12;">
-            <span style="font-size: 18px; font-weight: bold; color: #2c3e50;">9321377791@ybl</span>
-            <br>
-            <small style="color: #e67e22;">(Double click to copy)</small>
-        </div>
-
-        <div style="text-align: left; margin-bottom: 15px;">
-            <label style="font-size: 13px; font-weight: bold;">Enter UTR / Transaction ID:</label>
-            <input type="text" id="utrNumber" placeholder="12-digit UTR Number" style="width: 100%; box-sizing: border-box;">
-        </div>
-
-        <button class="btn-primary" onclick="confirmPayment()" style="width: 100%; padding: 12px;">Confirm Payment</button>
-        
-        <div id="paymentMessage" style="display:none; margin-top: 15px; padding: 10px; background: #e8f4fd; color: #2980b9; border-radius: 5px; font-weight: bold;">
-            Please wait 15 minutes for payment verification.
-        </div>
-
-        <p onclick="closePayment()" style="cursor:pointer; margin-top:15px; color:#999; font-size: 13px;">Cancel</p>
+<!-- SIGNUP MODAL -->
+<div class="modal" id="signupModal">
+    <div class="modal-content">
+        <div class="close" onclick="closeModal('signupModal')">✖</div>
+        <h2>Sign Up</h2>
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Create Account</button>
     </div>
 </div>
 
 <script>
-    function handleLogin() {
-        firebase.auth().signInWithEmailAndPassword(document.getElementById('lEmail').value, document.getElementById('lPass').value)
-        .then(() => closeModal()).catch(e => alert(e.message));
-    }
-    function handleSignup() {
-        firebase.auth().createUserWithEmailAndPassword(document.getElementById('sEmail
+function openLogin(){
+    document.getElementById("loginModal").style.display="block";
+}
+function openSignup(){
+    document.getElementById("signupModal").style.display="block";
+}
+function closeModal(id){
+    document.getElementById(id).style.display="none";
+}
+</script>
+
+</body>
+</html>
